@@ -1,5 +1,6 @@
 # 📅 Schedule2Calendar
 
+https://schedule2calendar.netlify.app/
 Welcome to **Schedule2Calendar**! This project is designed to help SUNY (State University of New York) students easily export their schedules to Google Calendar. With just a few clicks, you can manage your academic schedule and ensure you never miss a class or event.
 
 ## 🚀 Features
