@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Container, Typography, List, ListItem, ListItemText, Button, Box, Paper, Grid } from '@mui/material';
 
-const CLIENT_ID = '374941298844-5e9jb2800ic913ulcmir95to60hh41nl.apps.googleusercontent.com';
-const API_KEY = 'AIzaSyDW_idAW_QJJFoKf-g3lne0W0cByZk6aj8';
+const CLIENT_ID = '';
+const API_KEY = '';
 const DISCOVERY_DOCS = [
   'https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest',
   'https://www.googleapis.com/discovery/v1/apis/drive/v3/rest'
