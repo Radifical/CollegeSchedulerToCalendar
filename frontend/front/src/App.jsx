@@ -6,6 +6,7 @@ import Schedule from './components/Schedule';
 import Extension from './components/Extension';
 import Navbar from './components/Navbar';
 import Home from './components/Home';
+import Privacy from './components/Privacy';
 
 const App = () => {
   const [user, setUser] = useState(null);
@@ -13,9 +14,7 @@ const App = () => {
   return (
     <Router>
       <Navbar user={user} setUser={setUser} />
-      <div className="container mx-auto p-4">
-        <AppContent user={user} setUser={setUser} />
-      </div>
+      <AppContent user={user} setUser={setUser} />
     </Router>
   );
 };
@@ -36,6 +35,7 @@ const AppContent = ({ user, setUser }) => {
       <Route path="/signup" element={<Signup />} />
       <Route path="/schedule" element={user ? <Schedule user={user} /> : <p>Please log in to see your schedule.</p>} />
       <Route path="/extension" element={<Extension />} />
+      <Route path="/privacy" element={<Privacy />} />
     </Routes>
   );
 };

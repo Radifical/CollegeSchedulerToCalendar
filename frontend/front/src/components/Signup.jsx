@@ -1,52 +1,110 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
-import { Container, TextField, Button, Typography, Box } from '@mui/material';
+import { useNavigate, Link } from 'react-router-dom';
 
 const Signup = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
 
   const handleSignup = async (e) => {
     e.preventDefault();
+    
+    if (password !== confirmPassword) {
+      alert('Passwords do not match');
+      return;
+    }
+    
+    setIsLoading(true);
+    
     try {
       await axios.post('http://localhost:3000/api/newUser', { username, password });
       navigate('/login');
     } catch (error) {
       console.error('Signup error:', error);
       alert('Signup failed');
+    } finally {
+      setIsLoading(false);
     }
   };
 
   return (
-    <Container maxWidth="sm" className="signup-container">
-      <Box component="form" onSubmit={handleSignup} className="signup-box">
-        <Typography variant="h4" className="text-black mb-4">Signup</Typography>
-        <TextField
-          label="Username"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-          required
-          fullWidth
-          margin="normal"
-          className="bg-white text-black border-none rounded-lg focus:ring-blue-500 focus:border-blue-500"
-        />
-        <TextField
-          label="Password"
-          type="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          required
-          fullWidth
-          margin="normal"
-          className="bg-white text-black border-none rounded-lg focus:ring-blue-500 focus:border-blue-500"
-        />
-        <Button type="submit" variant="contained" className="bg-blue-600 hover:bg-blue-500 text-white w-full mt-4">
-          Signup
-        </Button>
-      </Box>
-    </Container>
+    <div className="min-h-screen bg-gray-950 flex items-center justify-center px-6">
+      <div className="w-full max-w-md">
+        <div className="card animate-scale-in">
+          <div className="text-center mb-8">
+            <h1 className="text-3xl font-light text-gray-100 mb-2">create account</h1>
+            <p className="text-gray-400">join schedule2calendar today</p>
+          </div>
+          
+          <form onSubmit={handleSignup} className="space-y-6">
+            <div>
+              <label htmlFor="username" className="block text-sm font-medium text-gray-300 mb-2">
+                username
+              </label>
+              <input
+                id="username"
+                type="text"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+                required
+                className="input-field w-full"
+                placeholder="choose a username"
+              />
+            </div>
+            
+            <div>
+              <label htmlFor="password" className="block text-sm font-medium text-gray-300 mb-2">
+                password
+              </label>
+              <input
+                id="password"
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+                className="input-field w-full"
+                placeholder="create a password"
+              />
+            </div>
+            
+            <div>
+              <label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-300 mb-2">
+                confirm password
+              </label>
+              <input
+                id="confirmPassword"
+                type="password"
+                value={confirmPassword}
+                onChange={(e) => setConfirmPassword(e.target.value)}
+                required
+                className="input-field w-full"
+                placeholder="confirm your password"
+              />
+            </div>
+            
+            <button
+              type="submit"
+              disabled={isLoading}
+              className="btn-primary w-full py-3 disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              {isLoading ? 'creating account...' : 'create account'}
+            </button>
+          </form>
+          
+          <div className="mt-6 text-center">
+            <p className="text-gray-400 text-sm">
+              already have an account?{' '}
+              <Link to="/login" className="text-gray-200 hover:text-white transition-colors duration-200">
+                sign in
+              </Link>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
   );
 };
 
